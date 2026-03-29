@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ShopEasy — Microservices Store</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar">
+  <div class="nav-brand">🛍️ ShopEasy</div>
+  <div class="nav-links" id="navLinks">
+    <a href="#" onclick="showPage('home')" class="nav-link active">Home</a>
+    <a href="#" onclick="showPage('products')" class="nav-link">Products</a>
+    <a href="#" onclick="showPage('cart')" class="nav-link">Cart <span class="cart-badge" id="cartBadge">0</span></a>
+    <a href="#" onclick="showPage('orders')" class="nav-link" id="ordersLink" style="display:none">My Orders</a>
+  </div>
+  <div class="nav-auth">
+    <div id="authButtons">
+      <button class="btn btn-outline" onclick="showPage('login')">Login</button>
+      <button class="btn btn-primary" onclick="showPage('register')">Register</button>
+    </div>
+    <div id="userInfo" style="display:none">
+      <span class="user-greeting" id="userGreeting"></span>
+      <button class="btn btn-outline" onclick="logout()">Logout</button>
+    </div>
+  </div>
+</nav>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- Pages -->
+<main class="main">
+
+  <!-- HOME PAGE -->
+  <div id="page-home" class="page active">
+    <section class="hero">
+      <div class="hero-text">
+        <h1>Shop Smarter,<br/><span class="accent">Live Better</span></h1>
+        <p>Discover thousands of products at amazing prices. Fast delivery, easy returns.</p>
+        <button class="btn btn-primary btn-lg" onclick="showPage('products')">Browse Products →</button>
+      </div>
+      <div class="hero-emojis">🛍️🎧⌚👟🎒☕</div>
+    </section>
+    <section class="features">
+      <div class="feature-card">⚡ Fast Delivery</div>
+      <div class="feature-card">🔒 Secure Payments</div>
+      <div class="feature-card">↩️ Easy Returns</div>
+      <div class="feature-card">🎁 Best Deals</div>
+    </section>
+  </div>
+
+  <!-- PRODUCTS PAGE -->
+  <div id="page-products" class="page">
+    <div class="page-header">
+      <h2>Products</h2>
+      <div class="filter-bar">
+        <select id="categoryFilter" onchange="filterProducts()">
+          <option value="">All Categories</option>
+          <option value="Electronics">Electronics</option>
+          <option value="Footwear">Footwear</option>
+          <option value="Bags">Bags</option>
+          <option value="Kitchen">Kitchen</option>
+          <option value="Accessories">Accessories</option>
+          <option value="Sports">Sports</option>
+          <option value="Stationery">Stationery</option>
+        </select>
+      </div>
+    </div>
+    <div class="product-grid" id="productGrid">
+      <div class="loading">Loading products...</div>
+    </div>
+  </div>
+
+  <!-- CART PAGE -->
+  <div id="page-cart" class="page">
+    <div class="page-header">
+      <h2>Your Cart</h2>
+    </div>
+    <div id="cartContent">
+      <div class="empty-state">🛒 Your cart is empty. <a href="#" onclick="showPage('products')">Shop now</a></div>
+    </div>
+  </div>
+
+  <!-- ORDERS PAGE -->
+  <div id="page-orders" class="page">
+    <div class="page-header">
+      <h2>My Orders</h2>
+    </div>
+    <div id="ordersContent">
+      <div class="loading">Loading orders...</div>
+    </div>
+  </div>
+
+  <!-- LOGIN PAGE -->
+  <div id="page-login" class="page">
+    <div class="auth-container">
+      <h2>Welcome Back</h2>
+      <p class="auth-sub">Sign in to your account</p>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" id="loginEmail" placeholder="you@example.com"/>
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="loginPassword" placeholder="Enter password"/>
+      </div>
+      <button class="btn btn-primary btn-full" onclick="login()">Login</button>
+      <p class="auth-switch">Don't have an account? <a href="#" onclick="showPage('register')">Register</a></p>
+    </div>
+  </div>
+
+  <!-- REGISTER PAGE -->
+  <div id="page-register" class="page">
+    <div class="auth-container">
+      <h2>Create Account</h2>
+      <p class="auth-sub">Join ShopEasy today</p>
+      <div class="form-group">
+        <label>Name</label>
+        <input type="text" id="regName" placeholder="Your full name"/>
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" id="regEmail" placeholder="you@example.com"/>
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="regPassword" placeholder="Create a password"/>
+      </div>
+      <button class="btn btn-primary btn-full" onclick="register()">Create Account</button>
+      <p class="auth-switch">Already have an account? <a href="#" onclick="showPage('login')">Login</a></p>
+    </div>
+  </div>
+
+  <!-- CHECKOUT MODAL -->
+  <div id="checkoutModal" class="modal-overlay" style="display:none">
+    <div class="modal">
+      <h3>Checkout</h3>
+      <div class="form-group">
+        <label>Delivery Address</label>
+        <textarea id="deliveryAddress" rows="3" placeholder="Enter your full delivery address"></textarea>
+      </div>
+      <div id="orderSummary" class="order-summary"></div>
+      <div class="modal-actions">
+        <button class="btn btn-outline" onclick="closeModal()">Cancel</button>
+        <button class="btn btn-primary" onclick="placeOrder()">Place Order</button>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer class="footer">
+  <p>© 2024 ShopEasy — Built with Flask Microservices & MongoDB</p>
+</footer>
+
+<script>
+  const USER_SERVICE   = "{{ user_service }}";
+  const PRODUCT_SERVICE = "{{ product_service }}";
+  const ORDER_SERVICE  = "{{ order_service }}";
+</script>
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
