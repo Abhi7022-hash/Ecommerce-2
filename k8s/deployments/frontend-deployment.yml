@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-service
+  namespace: ecommerce-2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend-service
+  template:
+    metadata:
+      labels:
+        app: frontend-service
+    spec:
+      containers:
+        - name: frontend-service
+          image: abhishek661/frontend-service:v1
+          ports:
+            - containerPort: 5000
+          env:
+            - name: USER_SERVICE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: ecommerce-config
+                  key: USER_SERVICE_URL
+            - name: PRODUCT_SERVICE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: ecommerce-config
+                  key: PRODUCT_SERVICE_URL
+            - name: ORDER_SERVICE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: ecommerce-config
+                  key: ORDER_SERVICE_URL

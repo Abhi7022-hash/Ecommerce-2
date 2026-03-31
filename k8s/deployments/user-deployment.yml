@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-service
+  namespace: ecommerce-2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: user-service
+  template:
+    metadata:
+      labels:
+        app: user-service
+    spec:
+      containers:
+        - name: user-service
+          image: abhishek661/user-service:v1
+          ports:
+            - containerPort: 5001
+          env:
+            - name: MONGO_URI
+              valueFrom:
+                configMapKeyRef:
+                  name: ecommerce-config
+                  key: MONGO_URI
+            - name: SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: ecommerce-secret
+                  key: SECRET_KEY
