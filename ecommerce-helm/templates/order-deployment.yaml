@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.order.deployment-name }}
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: {{ .Values.order.replicaCount }}
+
+  selector:
+    matchLabels:
+      app:  {{ .Values.order.deployment-name }}
+
+  template:
+    metadata:
+      labels:
+        app:  {{ .Values.order.deployment-name }}
+
+    spec:
+      containers:
+        - name: order-service
+
+          image: "{{ .Values.order.image.repository }}:{{ .Values.order.image.tag }}"
+
+          ports:
+            - containerPort: {{ .Values.order.port }}
+
+          env:
+            - name: MONGO_URI
+              valueFrom:
+                configMapKeyRef:
+                  name: ecommerce-config
+                  key: MONGO_URI
+
+            - name: USER_SERVICE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: ecommerce-config
+                  key: ORDER_USER_SERVICE_URL
+
+            - name: PRODUCT_SERVICE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: ecommerce-config
+                  key: ORDER_PRODUCT_SERVICE_URL

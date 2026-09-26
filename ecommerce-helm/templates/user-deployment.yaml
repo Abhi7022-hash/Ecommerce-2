@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.user.deployment-name }}
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: {{ .Values.user.replicaCount }}
+
+  selector:
+    matchLabels:
+      app:  {{ .Values.user.deployment-name }}
+
+  template:
+    metadata:
+      labels:
+        app:  {{ .Values.user.deployment-name }}
+
+    spec:
+      containers:
+        - name: user-service
+
+          image: "{{ .Values.user.image.repository }}:{{ .Values.user.image.tag }}"
+
+          ports:
+            - containerPort: {{ .Values.user.port }}
+
+          env:
+            - name: MONGO_URI
+              valueFrom:
+                configMapKeyRef:
+                  name: ecommerce-config
+                  key: MONGO_URI
+
+            - name: SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: ecommerce-secret
+                  key: SECRET_KEY

@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .values.config.config-name }}
+  namespace: {{ .Values.namespace }}
+data:
+
+  MONGO_URI: {{ .Values.config.mongoUri | quote }}
+
+  FRONTEND_USER_SERVICE_URL: {{ .Values.config.frontend.userServiceUrl | quote }}
+  FRONTEND_PRODUCT_SERVICE_URL: {{ .Values.config.frontend.productServiceUrl | quote }}
+  FRONTEND_ORDER_SERVICE_URL: {{ .Values.config.frontend.orderServiceUrl | quote }}
+
+  ORDER_USER_SERVICE_URL: {{ .Values.config.order.userServiceUrl | quote }}
+  ORDER_PRODUCT_SERVICE_URL: {{ .Values.config.order.productServiceUrl | quote }}

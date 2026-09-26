@@ -1,0 +1,56 @@
+{{- if .Values.ingress.enabled }}
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+
+metadata:
+  name: {{ .Values.ingress.name }}
+  namespace: {{ .Values.namespace }}
+
+  annotations:
+    alb.ingress.kubernetes.io/scheme: {{ .Values.ingress.scheme }}
+
+    alb.ingress.kubernetes.io/target-type: {{ .Values.ingress.targetType }}
+
+spec:
+
+  ingressClassName: {{ .Values.ingress.ingressClassName }}
+
+  rules:
+    - http:
+
+        paths:
+
+          - path: /api/users
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ .Values.user.service-name }}
+                port:
+                  number: {{ .Values.user.port }}
+
+          - path: /api/products
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ .Values.product.service-name }}
+                port:
+                  number: {{ .Values.product.port }}
+
+          - path: /api/orders
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ .Values.order.service-name }}
+                port:
+                  number: {{ .Values.order.port }}
+
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ .Values.frontend.service-name }}
+                port:
+                  number: {{ .Values.frontend.port }}
+
+{{- end }}
