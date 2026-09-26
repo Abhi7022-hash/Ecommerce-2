@@ -1,0 +1,60 @@
+namespace: ecommerce-2
+
+frontend:
+  replicaCount: 1
+  image:
+    repository: abhishek661/frontend
+    tag: v1
+  port: 5000
+
+user:
+  replicaCount: 1
+  image:
+    repository: abhishek661/user
+    tag: v1
+  port: 5001
+
+product:
+  replicaCount: 1
+  image:
+    repository: abhishek661/product
+    tag: v1
+  port: 5002
+
+order:
+  replicaCount: 1
+  image:
+    repository: abhishek661/order
+    tag: v1
+  port: 5003
+
+mongo:
+  replicaCount: 1
+  image:
+    repository: mongo
+    tag: "7"
+  port: 27017
+
+  storage:
+    size: 1Gi
+    storageClass: gp2
+
+config:
+  mongoUri: "mongodb://mongo-service:27017/"
+
+  frontend:
+    userServiceUrl: "/api/users"
+    productServiceUrl: "/api/products"
+    orderServiceUrl: "/api/orders"
+
+  order:
+    userServiceUrl: "http://user-service:5001"
+    productServiceUrl: "http://product-service:5002"
+
+secret:
+  secretKey: "ecommerce-super-secret"
+
+ingress:
+  enabled: true
+  scheme: internet-facing
+  targetType: instance
