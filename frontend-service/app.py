@@ -10,6 +10,11 @@ PRODUCT_SERVICE = os.environ.get("PRODUCT_SERVICE_URL", "/api/products")
 ORDER_SERVICE = os.environ.get("ORDER_SERVICE_URL", "/api/orders")
 
 
+@app.route("/health", methods=["GET"])
+def health():
+    return {"status": "frontend-service running"}, 200
+
+
 @app.route("/")
 def index():
     return render_template("index.html",
