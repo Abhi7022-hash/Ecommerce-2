@@ -25,7 +25,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: {{ .Values.user.service-name }}
+                name: {{ .Values.user.servicename }}
                 port:
                   number: {{ .Values.user.port }}
 
@@ -33,7 +33,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: {{ .Values.product.service-name }}
+                name: {{ .Values.product.servicename }}
                 port:
                   number: {{ .Values.product.port }}
 
@@ -41,7 +41,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: {{ .Values.order.service-name }}
+                name: {{ .Values.order.servicename }}
                 port:
                   number: {{ .Values.order.port }}
 
@@ -49,7 +49,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: {{ .Values.frontend.service-name }}
+                name: {{ .Values.frontend.servicename }}
                 port:
                   number: {{ .Values.frontend.port }}
 

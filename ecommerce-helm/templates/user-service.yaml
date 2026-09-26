@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Values.user.service-name }}
+  name: {{ .Values.user.servicename }}
   namespace: {{ .Values.namespace }}
 spec:
   type: {{ .Values.service.type }}
 
   selector:
-    app: {{ .Values.user.deployment-name }}
+    app: {{ .Values.user.deploymentname }}
 
   ports:
     - port: {{ .Values.user.port }}

@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.product.deployment-name }}
+  name: {{ .Values.product.deploymentname }}
   namespace: {{ .Values.namespace }}
 spec:
   replicas: {{ .Values.product.replicaCount }}
 
   selector:
     matchLabels:
-      app:  {{ .Values.product.deployment-name }}
+      app:  {{ .Values.product.deploymentname }}
 
   template:
     metadata:
       labels:
-        app:  {{ .Values.product.deployment-name }}
+        app:  {{ .Values.product.deploymentname }}
 
     spec:
       containers:

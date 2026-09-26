@@ -1,8 +1,8 @@
 namespace: ecommerce-2
 
 frontend:
-  deployment-name: frontend-service #User for labels
-  service-name: frontend-service
+  deploymentname: frontend-service #User for labels
+  servicename: frontend-service
   replicaCount: 1
   image:
     repository: abhishek661/frontend
@@ -10,8 +10,8 @@ frontend:
   port: 5000
 
 user:
-  deployment-name: user-service #user for labels
-  service-name: user-service
+  deploymentname: user-service #user for labels
+  servicename: user-service
   replicaCount: 1
   image:
     repository: abhishek661/user
@@ -19,8 +19,8 @@ user:
   port: 5001
 
 product:
-  deployment-name: product-service #user for labels 
-  service-name: product-service
+  deploymentname: product-service #user for labels 
+  servicename: product-service
   replicaCount: 1
   image:
     repository: abhishek661/product
@@ -28,8 +28,8 @@ product:
   port: 5002
 
 order:
-  deployment-name: order-service # user for labels
-  service-name: 
+  deploymentname: order-service # user for labels
+  servicename: 
   replicaCount: 1
   image:
     repository: abhishek661/order
@@ -37,8 +37,8 @@ order:
   port: 5003
 
 mongo:
-  deployment-name: mongo # user for labels
-  service-name: mongo-service
+  deploymentname: mongo # user for labels
+  servicename: mongo-service
   pvc-name: mongo
   replicaCount: 1
   image:
@@ -51,7 +51,7 @@ mongo:
     storageClass: gp2
 
 config:
-  config-name: ecommerce-config
+  configname: ecommerce-config
   mongoUri: "mongodb://mongo-service:27017/"
 
   frontend:
@@ -64,7 +64,7 @@ config:
     productServiceUrl: "http://product-service:5002"
 
 secret:
-  secret-name: ecommerce-secret
+  secretname: ecommerce-secret
   secretKey: "ecommerce-super-secret"
 
 service:

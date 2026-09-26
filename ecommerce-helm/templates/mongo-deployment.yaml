@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.mongo.deployment-name }}
+  name: {{ .Values.mongo.deploymentname }}
   namespace: {{ .Values.namespace }}
 spec:
   replicas: {{ .Values.mongo.replicaCount }}
 
   selector:
     matchLabels:
-      app: {{ .Values.mongo.deployment-name }}
+      app: {{ .Values.mongo.deploymentname }}
 
   template:
     metadata:
       labels:
-        app: {{ .Values.mongo.deployment-name }}
+        app: {{ .Values.mongo.deploymentname }}
 
     spec:
       containers:
