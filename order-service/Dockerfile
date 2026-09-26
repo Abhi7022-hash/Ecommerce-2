@@ -6,7 +6,7 @@ RUN pip install --no-cache-dir --prefix=/install -r requirements.txt
 
 
 #Stage-2 Runtime Stage
-FROm python:3.11 AS runtime 
+FROM python:3.11 AS runtime 
 WORKDIR /app
 COPY --from=builder /install /usr/local
 COPY app.py .
