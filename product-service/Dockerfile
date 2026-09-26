@@ -9,6 +9,6 @@ FROM python:3.11-slim AS runtime
 WORKDIR /app
 COPY --from=builder /install /usr/local
 COPY app.py .
-EXPOSE 5003
+EXPOSE 5002
 CMD ["python" , "app.py"]
 

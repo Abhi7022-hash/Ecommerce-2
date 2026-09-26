@@ -10,8 +10,15 @@ import os
 app = Flask(__name__)
 CORS(app)
 
-SECRET_KEY = os.environ.get("SECRET_KEY", "ecommerce-secret-key")
-MONGO_URI = os.environ.get("MONGO_URI", "mongodb://localhost:27017/")
+SECRET_KEY = os.environ.get(
+    "SECRET_KEY",
+    "ecommerce-secret-key"
+)
+
+MONGO_URI = os.environ.get(
+    "MONGO_URI",
+    "mongodb://localhost:27017/"
+)
 
 client = MongoClient(MONGO_URI)
 db = client["user_db"]
@@ -111,4 +118,4 @@ def get_user(user_id):
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5001, debug=True)
+    app.run(host="0.0.0.0", port=5001, debug=False)

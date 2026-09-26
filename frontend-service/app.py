@@ -5,9 +5,9 @@ import os
 app = Flask(__name__)
 CORS(app)
 
-USER_SERVICE = os.environ.get("USER_SERVICE_URL", "http://localhost:5001")
-PRODUCT_SERVICE = os.environ.get("PRODUCT_SERVICE_URL", "http://localhost:5002")
-ORDER_SERVICE = os.environ.get("ORDER_SERVICE_URL", "http://localhost:5003")
+USER_SERVICE = os.environ.get("USER_SERVICE_URL", "/api/users")
+PRODUCT_SERVICE = os.environ.get("PRODUCT_SERVICE_URL", "/api/products")
+ORDER_SERVICE = os.environ.get("ORDER_SERVICE_URL", "/api/orders")
 
 
 @app.route("/")
@@ -20,4 +20,4 @@ def index():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    app.run(host="0.0.0.0", port=5000, debug=False)

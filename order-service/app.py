@@ -9,9 +9,20 @@ import requests
 app = Flask(__name__)
 CORS(app)
 
-MONGO_URI = os.environ.get("MONGO_URI", "mongodb://localhost:27017/")
-USER_SERVICE = os.environ.get("USER_SERVICE_URL", "http://localhost:5001")
-PRODUCT_SERVICE = os.environ.get("PRODUCT_SERVICE_URL", "http://localhost:5002")
+MONGO_URI = os.environ.get(
+    "MONGO_URI",
+    "mongodb://mongo-service:27017/"
+)
+
+USER_SERVICE = os.environ.get(
+    "USER_SERVICE_URL",
+    "http://user-service:5001"
+)
+
+PRODUCT_SERVICE = os.environ.get(
+    "PRODUCT_SERVICE_URL",
+    "http://product-service:5002"
+)
 
 client = MongoClient(MONGO_URI)
 db = client["order_db"]
@@ -141,4 +152,4 @@ def update_status(order_id):
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5003, debug=True)
+    app.run(host="0.0.0.0", port=5003, debug=False)

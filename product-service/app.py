@@ -8,7 +8,10 @@ import os
 app = Flask(__name__)
 CORS(app)
 
-MONGO_URI = os.environ.get("MONGO_URI", "mongodb://localhost:27017/")
+MONGO_URI = os.environ.get(
+    "MONGO_URI",
+    "mongodb://mongo-service:27017/"
+)
 
 client = MongoClient(MONGO_URI)
 db = client["product_db"]
@@ -116,4 +119,4 @@ def get_products_by_ids():
 
 if __name__ == "__main__":
     seed_products()
-    app.run(host="0.0.0.0", port=5002, debug=True)
+    app.run(host="0.0.0.0", port=5002, debug=False)
