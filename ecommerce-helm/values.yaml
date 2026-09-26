@@ -29,7 +29,7 @@ product:
 
 order:
   deploymentname: order-service # user for labels
-  servicename: 
+  servicename: order-service
   replicaCount: 1
   image:
     repository: abhishek661/order
