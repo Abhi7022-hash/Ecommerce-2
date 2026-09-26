@@ -37,7 +37,7 @@ order:
   port: 5003
 
 mongo:
-  deploymentname: mongo # user for labels
+  pvcname: mongo # user for labels
   servicename: mongo-service
   pvc-name: mongo
   replicaCount: 1
