@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ .values.config.configname }}
+  name: {{ .Values.config.configname }}
   namespace: {{ .Values.namespace }}
 data:
 
