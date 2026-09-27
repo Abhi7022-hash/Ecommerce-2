@@ -1,3 +1,4 @@
+```yaml
 {{- if .Values.ingress.enabled }}
 
 apiVersion: networking.k8s.io/v1
@@ -8,10 +9,8 @@ metadata:
   namespace: {{ .Values.namespace }}
 
   annotations:
-    alb.ingress.kubernetes.io/scheme: {{ .Values.ingress.scheme }}
-    alb.ingress.kubernetes.io/target-type: {{ .Values.ingress.targetType }}
-    alb.ingress.kubernetes.io/healthcheck-path: /health
-    alb.ingress.kubernetes.io/success-codes: "200"
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
 
 spec:
 
@@ -22,24 +21,24 @@ spec:
 
         paths:
 
-          - path: /api/users
-            pathType: Prefix
+          - path: /api/users(/|$)(.*)
+            pathType: ImplementationSpecific
             backend:
               service:
                 name: {{ .Values.user.servicename }}
                 port:
                   number: {{ .Values.user.port }}
 
-          - path: /api/products
-            pathType: Prefix
+          - path: /api/products(/|$)(.*)
+            pathType: ImplementationSpecific
             backend:
               service:
                 name: {{ .Values.product.servicename }}
                 port:
                   number: {{ .Values.product.port }}
 
-          - path: /api/orders
-            pathType: Prefix
+          - path: /api/orders(/|$)(.*)
+            pathType: ImplementationSpecific
             backend:
               service:
                 name: {{ .Values.order.servicename }}
@@ -55,3 +54,4 @@ spec:
                   number: {{ .Values.frontend.port }}
 
 {{- end }}
+```
