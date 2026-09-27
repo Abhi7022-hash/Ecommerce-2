@@ -55,7 +55,7 @@ def health():
     return jsonify({"status": "order-service running"}), 200
 
 
-@app.route("/orders", methods=["POST"])
+@app.route("/api/orders", methods=["POST"])
 def create_order():
     user_info = get_auth_user(request)
     if not user_info or not user_info.get("valid"):
@@ -110,7 +110,7 @@ def create_order():
     return jsonify({"message": "Order placed successfully", "order": order}), 201
 
 
-@app.route("/orders", methods=["GET"])
+@app.route("/api/orders", methods=["GET"])
 def get_orders():
     user_info = get_auth_user(request)
     if not user_info or not user_info.get("valid"):
@@ -120,8 +120,7 @@ def get_orders():
     return jsonify(user_orders), 200
 
 
-@app.route("/orders/<order_id>", methods=["GET"])
-def get_order(order_id):
+
     user_info = get_auth_user(request)
     if not user_info or not user_info.get("valid"):
         return jsonify({"error": "Unauthorized"}), 401
@@ -135,7 +134,7 @@ def get_order(order_id):
         return jsonify({"error": "Invalid order ID"}), 400
 
 
-@app.route("/orders/<order_id>/status", methods=["PUT"])
+@app.route("/api/orders/<order_id>/status", methods=["PUT"])
 def update_status(order_id):
     data = request.get_json()
     new_status = data.get("status")
