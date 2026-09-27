@@ -128,8 +128,8 @@ async function loadProducts() {
   grid.innerHTML = '<div class="loading">Loading products...</div>';
   const category = document.getElementById("categoryFilter").value;
   const url = category
-    ? `${PRODUCT_SERVICE}/products?category=${encodeURIComponent(category)}`
-    : `${PRODUCT_SERVICE}/products`;
+  ? `${PRODUCT_SERVICE}?category=${encodeURIComponent(category)}`
+  : PRODUCT_SERVICE;
   try {
     const res = await fetch(url);
     allProducts = await res.json();
