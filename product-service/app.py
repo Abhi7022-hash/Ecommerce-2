@@ -46,7 +46,7 @@ def health():
     return jsonify({"status": "product-service running"}), 200
 
 
-@app.route("/products", methods=["GET"])
+@app.route("/api/products", methods=["GET"])
 def get_products():
     category = request.args.get("category")
     query = {}
@@ -56,7 +56,7 @@ def get_products():
     return jsonify(result), 200
 
 
-@app.route("/products/<product_id>", methods=["GET"])
+@app.route("/api/products/<product_id>", methods=["GET"])
 def get_product(product_id):
     try:
         product = products.find_one({"_id": ObjectId(product_id)})
@@ -67,7 +67,7 @@ def get_product(product_id):
         return jsonify({"error": "Invalid product ID"}), 400
 
 
-@app.route("/products", methods=["POST"])
+@app.route("/api/products", methods=["POST"])
 def create_product():
     data = request.get_json()
     required = ["name", "description", "price", "category", "stock"]
@@ -80,7 +80,7 @@ def create_product():
     return jsonify(data), 201
 
 
-@app.route("/products/<product_id>", methods=["PUT"])
+@app.route("/api/products/<product_id>", methods=["PUT"])
 def update_product(product_id):
     try:
         data = request.get_json()
@@ -94,7 +94,7 @@ def update_product(product_id):
         return jsonify({"error": "Invalid product ID"}), 400
 
 
-@app.route("/products/<product_id>", methods=["DELETE"])
+@app.route("/api/products/<product_id>", methods=["DELETE"])
 def delete_product(product_id):
     try:
         result = products.delete_one({"_id": ObjectId(product_id)})
@@ -104,8 +104,7 @@ def delete_product(product_id):
     except Exception:
         return jsonify({"error": "Invalid product ID"}), 400
 
-
-@app.route("/products/bulk", methods=["POST"])
+@app.route("/api/products/bulk", methods=["POST"])
 def get_products_by_ids():
     data = request.get_json()
     ids = data.get("ids", [])

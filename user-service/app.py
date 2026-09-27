@@ -35,7 +35,7 @@ def health():
     return jsonify({"status": "user-service running"}), 200
 
 
-@app.route("/register", methods=["POST"])
+@app.route("/api/users/register", methods=["POST"])
 def register():
     data = request.get_json()
     name = data.get("name")
@@ -61,7 +61,7 @@ def register():
     return jsonify({"message": "User registered", "user": user}), 201
 
 
-@app.route("/login", methods=["POST"])
+@app.route("/api/users/login", methods=["POST"])
 def login():
     data = request.get_json()
     email = data.get("email")
@@ -92,7 +92,7 @@ def login():
     ), 200
 
 
-@app.route("/verify", methods=["POST"])
+@app.route("/api/users/verify", methods=["POST"])
 def verify_token():
     data = request.get_json()
     token = data.get("token")
@@ -105,7 +105,7 @@ def verify_token():
         return jsonify({"valid": False, "error": "Invalid token"}), 401
 
 
-@app.route("/users/<user_id>", methods=["GET"])
+@app.route("/api/users/<user_id>", methods=["GET"])
 def get_user(user_id):
     try:
         user = users.find_one({"_id": ObjectId(user_id)})

@@ -1,43 +1,34 @@
 {{- if .Values.ingress.enabled }}
-
 apiVersion: networking.k8s.io/v1
 kind: Ingress
-
 metadata:
   name: {{ .Values.ingress.name }}
   namespace: {{ .Values.namespace }}
-
-  annotations:
-    nginx.ingress.kubernetes.io/use-regex: "true"
-    nginx.ingress.kubernetes.io/rewrite-target: /$2
-
 spec:
-
   ingressClassName: {{ .Values.ingress.ingressClassName }}
 
   rules:
     - http:
-
         paths:
 
-          - path: /api/users(/|$)(.*)
-            pathType: ImplementationSpecific
+          - path: /api/users
+            pathType: Prefix
             backend:
               service:
                 name: {{ .Values.user.servicename }}
                 port:
                   number: {{ .Values.user.port }}
 
-          - path: /api/products(/|$)(.*)
-            pathType: ImplementationSpecific
+          - path: /api/products
+            pathType: Prefix
             backend:
               service:
                 name: {{ .Values.product.servicename }}
                 port:
                   number: {{ .Values.product.port }}
 
-          - path: /api/orders(/|$)(.*)
-            pathType: ImplementationSpecific
+          - path: /api/orders
+            pathType: Prefix
             backend:
               service:
                 name: {{ .Values.order.servicename }}
@@ -51,5 +42,4 @@ spec:
                 name: {{ .Values.frontend.servicename }}
                 port:
                   number: {{ .Values.frontend.port }}
-
 {{- end }}
