@@ -83,6 +83,7 @@ resource "aws_eks_node_group" "managed" {
   depends_on = [
     aws_iam_role_policy_attachment.node_worker_policy,
     aws_iam_role_policy_attachment.node_ecr_policy,
+     aws_iam_role_policy_attachment.node_cni_policy,
     aws_eks_addon.pod_identity_agent
   ]
 
