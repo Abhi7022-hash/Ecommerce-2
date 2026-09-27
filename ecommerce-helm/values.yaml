@@ -15,7 +15,7 @@ user:
   replicaCount: 1
   image:
     repository: abhishek661/user
-    tag: v1
+    tag: v2
   port: 5001
 
 product:
@@ -24,7 +24,7 @@ product:
   replicaCount: 1
   image:
     repository: abhishek661/product
-    tag: v1
+    tag: v2
   port: 5002
 
 order:
