@@ -6,7 +6,7 @@ frontend:
   replicaCount: 1
   image:
     repository: abhishek661/frontend
-    tag: v3
+    tag: v4
   port: 5000
 
 user:

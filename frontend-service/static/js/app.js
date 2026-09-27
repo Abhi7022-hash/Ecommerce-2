@@ -268,7 +268,7 @@ async function placeOrder() {
 
   const items = cart.map(i => ({ product_id: i.id, quantity: i.quantity }));
   try {
-    const res = await fetch(`${ORDER_SERVICE}/orders`, {
+    const res = await fetch(`${ORDER_SERVICE}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -295,7 +295,7 @@ async function loadOrders() {
   const content = document.getElementById("ordersContent");
   content.innerHTML = '<div class="loading">Loading your orders...</div>';
   try {
-    const res = await fetch(`${ORDER_SERVICE}/orders`, {
+    const res = await fetch(`${ORDER_SERVICE}`, {
       headers: { "Authorization": "Bearer " + token },
     });
     const orders = await res.json();
