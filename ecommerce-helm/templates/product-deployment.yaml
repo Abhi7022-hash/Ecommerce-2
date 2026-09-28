@@ -5,6 +5,11 @@ metadata:
   namespace: {{ .Values.namespace }}
 spec:
   replicas: {{ .Values.product.replicaCount }}
+  strategy:
+    type: {{ .Values.strategy.type }}
+    rollingUpdate:
+      maxUnavailable: {{ .Values.strategy.maxUnavailable }}
+      maxSurge: {{ .Values/strategy.maxSurge }}
 
   selector:
     matchLabels:

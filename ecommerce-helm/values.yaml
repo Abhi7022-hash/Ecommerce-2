@@ -1,9 +1,12 @@
 namespace: ecommerce-2
-
+strategy:
+  type: RollingUpdate
+  maxUnavailable: 0
+  maxSurge: 1
 frontend:
   deploymentname: frontend-service #User for labels
   servicename: frontend-service
-  replicaCount: 1
+  replicaCount: 2
   image:
     repository: abhishek661/frontend
     tag: v4
@@ -12,7 +15,7 @@ frontend:
 user:
   deploymentname: user-service #user for labels
   servicename: user-service
-  replicaCount: 1
+  replicaCount: 2
   image:
     repository: abhishek661/user
     tag: v2
@@ -21,7 +24,7 @@ user:
 product:
   deploymentname: product-service #user for labels 
   servicename: product-service
-  replicaCount: 1
+  replicaCount: 2
   image:
     repository: abhishek661/product
     tag: v2
@@ -30,7 +33,7 @@ product:
 order:
   deploymentname: order-service # user for labels
   servicename: order-service
-  replicaCount: 1
+  replicaCount: 2
   image:
     repository: abhishek661/order
     tag: v2
