@@ -9,7 +9,7 @@ spec:
     type: {{ .Values.strategy.type }}
     rollingUpdate:
       maxUnavailable: {{ .Values.strategy.maxUnavailable }}
-      maxSurge: {{ .Values/strategy.maxSurge }}
+      maxSurge: {{ .Values.strategy.maxSurge }}
 
   selector:
     matchLabels:
