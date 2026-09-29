@@ -78,5 +78,4 @@ ingress:
   name: ecommerce-ingress
   enabled: true
   ingressClassName: nginx
-  scheme: internet-facing
-  targetType: instance
+  
