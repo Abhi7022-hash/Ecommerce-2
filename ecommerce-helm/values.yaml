@@ -77,4 +77,4 @@ service:
 ingress:
   name: ecommerce-ingress
   enabled: true
-  ingressClassName: alb
+  ingressClassName: nginx
