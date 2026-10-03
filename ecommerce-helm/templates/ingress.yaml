@@ -1,9 +1,16 @@
 {{- if .Values.ingress.enabled }}
+
 apiVersion: networking.k8s.io/v1
 kind: Ingress
+
 metadata:
   name: {{ .Values.ingress.name }}
   namespace: {{ .Values.namespace }}
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: instance
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80}]'
+
 spec:
   ingressClassName: {{ .Values.ingress.ingressClassName }}
 
@@ -42,4 +49,5 @@ spec:
                 name: {{ .Values.frontend.servicename }}
                 port:
                   number: {{ .Values.frontend.port }}
+
 {{- end }}
