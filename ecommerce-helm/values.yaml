@@ -9,7 +9,7 @@ frontend:
   replicaCount: 2
   image:
     repository: abhishek661/frontend
-    tag: v4
+    tag: v3
   port: 5000
 
 user:
@@ -18,7 +18,7 @@ user:
   replicaCount: 2
   image:
     repository: abhishek661/user
-    tag: v2
+    tag: v3
   port: 5001
 
 product:
@@ -27,7 +27,7 @@ product:
   replicaCount: 2
   image:
     repository: abhishek661/product
-    tag: v2
+    tag: v3
   port: 5002
 
 order:
@@ -36,7 +36,7 @@ order:
   replicaCount: 2
   image:
     repository: abhishek661/order
-    tag: v2
+    tag: v3
   port: 5003
 
 mongo:
