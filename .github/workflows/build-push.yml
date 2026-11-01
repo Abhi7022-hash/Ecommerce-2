@@ -75,7 +75,7 @@ jobs:
         with:
           context: ./frontend-service
           push: true
-          tags: ${{ env.DOCKERHUB_USERNAME }}/frontend-service:${{ env.IMAGE_TAG }}
+          tags: ${{ env.DOCKERHUB_USERNAME }}/frontend:${{ env.IMAGE_TAG }}
 
       # 6. Build and push user image
       - name: Build and Push User
