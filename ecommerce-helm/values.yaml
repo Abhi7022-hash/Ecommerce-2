@@ -8,8 +8,8 @@ frontend:
   servicename: frontend-service
   replicaCount: 2
   image:
-    repository: abhishek661/frontend
-    tag: v3
+    repository: abhishek661/frontend-service
+    tag: v6
   port: 5000
 
 user:
