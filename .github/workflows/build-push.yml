@@ -1,14 +1,14 @@
-name: Build and Push E-commerce Images
+name: Build and Push Images to Dockerhub
 
 on:
   push:
     branches:
       - main
     paths:
-      - "frontend/**"
-      - "user/**"
-      - "product/**"
-      - "order/**"
+      - "frontend-service/**"
+      - "user-service/**"
+      - "product-service/**"
+      - "order-service/**"
       - ".github/workflows/build-push.yml"
 
   workflow_dispatch:
@@ -36,22 +36,22 @@ jobs:
         id: filter
         with:
           filters: |
-            frontend:
-              - 'frontend/**'
+            frontend-service:
+              - 'frontend-service/**'
             user:
-              - 'user/**'
+              - 'user-service/**'
             product:
-              - 'product/**'
+              - 'product-service/**'
             order:
-              - 'order/**'
+              - 'order-service/**'
 
       # 3. Login to Docker Hub
       - name: Login to Docker Hub
         if: |
-          steps.filter.outputs.frontend == 'true' ||
-          steps.filter.outputs.user == 'true' ||
-          steps.filter.outputs.product == 'true' ||
-          steps.filter.outputs.order == 'true' ||
+          steps.filter.outputs.frontend-service == 'true' ||
+          steps.filter.outputs.user-service == 'true' ||
+          steps.filter.outputs.product-service == 'true' ||
+          steps.filter.outputs.order-service == 'true' ||
           github.event_name == 'workflow_dispatch'
         uses: docker/login-action@v3
         with:
@@ -61,45 +61,45 @@ jobs:
       # 4. Set up Docker Buildx
       - name: Set up Docker Buildx
         if: |
-          steps.filter.outputs.frontend == 'true' ||
-          steps.filter.outputs.user == 'true' ||
-          steps.filter.outputs.product == 'true' ||
-          steps.filter.outputs.order == 'true' ||
+          steps.filter.outputs.frontend-service == 'true' ||
+          steps.filter.outputs.user-service == 'true' ||
+          steps.filter.outputs.product-service == 'true' ||
+          steps.filter.outputs.order-service == 'true' ||
           github.event_name == 'workflow_dispatch'
         uses: docker/setup-buildx-action@v3
 
       # 5. Build and push frontend image
       - name: Build and Push Frontend
-        if: steps.filter.outputs.frontend == 'true' || github.event_name == 'workflow_dispatch'
+        if: steps.filter.outputs.frontend-service == 'true' || github.event_name == 'workflow_dispatch'
         uses: docker/build-push-action@v6
         with:
-          context: ./frontend
+          context: ./frontend-service
           push: true
-          tags: ${{ env.DOCKERHUB_USERNAME }}/frontend:${{ env.IMAGE_TAG }}
+          tags: ${{ env.DOCKERHUB_USERNAME }}/frontend-service:${{ env.IMAGE_TAG }}
 
       # 6. Build and push user image
       - name: Build and Push User
-        if: steps.filter.outputs.user == 'true' || github.event_name == 'workflow_dispatch'
+        if: steps.filter.outputs.user-service == 'true' || github.event_name == 'workflow_dispatch'
         uses: docker/build-push-action@v6
         with:
-          context: ./user
+          context: ./user-service
           push: true
           tags: ${{ env.DOCKERHUB_USERNAME }}/user:${{ env.IMAGE_TAG }}
 
       # 7. Build and push product image
       - name: Build and Push Product
-        if: steps.filter.outputs.product == 'true' || github.event_name == 'workflow_dispatch'
+        if: steps.filter.outputs.product-service == 'true' || github.event_name == 'workflow_dispatch'
         uses: docker/build-push-action@v6
         with:
-          context: ./product
+          context: ./product-service
           push: true
           tags: ${{ env.DOCKERHUB_USERNAME }}/product:${{ env.IMAGE_TAG }}
 
       # 8. Build and push order image
       - name: Build and Push Order
-        if: steps.filter.outputs.order == 'true' || github.event_name == 'workflow_dispatch'
+        if: steps.filter.outputs.order-service == 'true' || github.event_name == 'workflow_dispatch'
         uses: docker/build-push-action@v6
         with:
-          context: ./order
+          context: ./order-service
           push: true
           tags: ${{ env.DOCKERHUB_USERNAME }}/order:${{ env.IMAGE_TAG }}
