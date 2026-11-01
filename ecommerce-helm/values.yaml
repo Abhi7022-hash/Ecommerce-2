@@ -6,7 +6,7 @@ strategy:
 frontend:
   deploymentname: frontend-service #User for labels
   servicename: frontend-service
-  replicaCount: 2
+  replicaCount: 1
   image:
     repository: abhishek661/frontend-service
     tag: v6
@@ -15,7 +15,7 @@ frontend:
 user:
   deploymentname: user-service #user for labels
   servicename: user-service
-  replicaCount: 2
+  replicaCount: 1
   image:
     repository: abhishek661/user
     tag: v3
@@ -24,7 +24,7 @@ user:
 product:
   deploymentname: product-service #user for labels 
   servicename: product-service
-  replicaCount: 2
+  replicaCount: 1
   image:
     repository: abhishek661/product
     tag: v3
@@ -33,7 +33,7 @@ product:
 order:
   deploymentname: order-service # user for labels
   servicename: order-service
-  replicaCount: 2
+  replicaCount: 1
   image:
     repository: abhishek661/order
     tag: v3
